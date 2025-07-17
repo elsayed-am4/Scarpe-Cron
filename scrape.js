@@ -26,7 +26,7 @@ async function sendEmailWithAttachment(filePath, fileName) {
   });
 
   let info = await transporter.sendMail({
-    from: `"Looker Bot" <${EMAIL_USER}>`,
+    from: `"Daily export" <${EMAIL_USER}>`,
     to: EMAIL_TO,
     subject: `Looker Export: ${fileName}`,
     text: `Automated export for ${fileName}`,
