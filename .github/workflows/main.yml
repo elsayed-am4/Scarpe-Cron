@@ -1,9 +1,9 @@
 name: Puppeteer Download and Email
 
 on:
-  workflow_dispatch:       # Manual trigger
+  workflow_dispatch:
   schedule:
-    - cron: '0 9 * * *'    # Runs daily at 09:00 UTC
+    - cron: '0 9 * * *'
 
 jobs:
   run-script:
@@ -17,11 +17,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Install Chromium
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser
 
       - name: Run Puppeteer Script
         env:
