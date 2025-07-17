@@ -49,7 +49,7 @@ const start_time = Date.now();
 //==========================================================================================
 // --------- DATE = 'YYYY-MM-DD'
 
-const START_DATE = '2025-07-01';
+const START_DATE = '2025-07-02';
 const END_DATE = '2025-07-02';
 
 // =========================================================================================
@@ -390,7 +390,7 @@ await waitForDownload(downloadPath, beforeCount);
       const newFileName = `export_traffic_src_${fileDate}${ext}`;
       fs.renameSync(path.join(downloadPath, latestFile), path.join(downloadPath, newFileName));
       console.log(`Downloaded and renamed: ${newFileName}`);
-
+      const newPath = path.join(downloadPath, newFileName);
     // Send the file as an email attachment
     await sendEmailWithAttachment(newPath, newFileName);
 
