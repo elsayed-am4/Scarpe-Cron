@@ -1,26 +1,37 @@
-name: Puppeteer Download and Email
+name: Daily Looker Report Export
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 9 * * *'
+    - cron: '0 5 * * *'  # Runs daily at 5 AM UTC (adjust as needed)
+  workflow_dispatch:     # Allows manual runs from GitHub UI
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+    env:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install dependencies
         run: npm install
 
+      - name: Install Google Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y wget gnupg unzip
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
       - name: Run Puppeteer Script
-        env:
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
         run: node scrape.js
