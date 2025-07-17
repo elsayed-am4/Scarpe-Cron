@@ -1,5 +1,7 @@
 
 const puppeteer = require('puppeteer');
+
+
 const fs = require('fs');
 const path = require('path');
 
@@ -89,7 +91,7 @@ function formatFileDate(date) {
 
 
   // 1. Launch browser and go to the report URL
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: true });
   const page = await browser.newPage();
   await page.goto('https://lookerstudio.google.com/reporting/cf50c9e0-7f4b-4e12-9583-3c2476b5d45b', { waitUntil: 'networkidle2' });
 
