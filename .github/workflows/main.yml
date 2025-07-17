@@ -1,0 +1,23 @@
+name: Puppeteer Download and Email
+
+on:
+  workflow_dispatch:       # Manual trigger
+  schedule:
+    - cron: '0 9 * * *'    # Runs daily at 09:00 UTC
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Run Puppeteer Script
+        env:
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        run: node scrape.js
