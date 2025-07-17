@@ -49,8 +49,13 @@ const start_time = Date.now();
 //==========================================================================================
 // --------- DATE = 'YYYY-MM-DD'
 
-const START_DATE = '2025-07-02';
-const END_DATE = '2025-07-02';
+// const START_DATE = '2025-07-02';
+// const END_DATE = '2025-07-02';
+
+const today = new Date();
+today.setDate(today.getDate() - 1);   // Go back one day
+const START_DATE = today.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+const END_DATE = START_DATE;
 
 // =========================================================================================
 // =========================================================================================
