@@ -97,7 +97,7 @@ function formatFileDate(date) {
 
 // =============================================================
 // 10 Sec for page load
-  await new Promise(resolve => setTimeout(resolve, 30000));
+  await new Promise(resolve => setTimeout(resolve, 60000));
 //==============================================================
 
   //  Set downlaod Path
