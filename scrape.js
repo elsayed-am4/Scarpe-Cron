@@ -12,6 +12,7 @@ const nodemailer = require('nodemailer');
 // send email with the csv
 //=================================
 // Email credentials from environment variables on git hub
+const REPORT_URL = process.env.REPORT_URL;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
 const EMAIL_TO = process.env.EMAIL_TO;
@@ -98,7 +99,7 @@ function formatFileDate(date) {
   // 1. Launch browser and go to the report URL
   const browser = await puppeteer.launch({  executablePath: '/usr/bin/google-chrome',args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: 'new' });
   const page = await browser.newPage();
-  await page.goto('https://lookerstudio.google.com/reporting/cf50c9e0-7f4b-4e12-9583-3c2476b5d45b', { waitUntil: 'networkidle2' });
+  await page.goto(REPORT_URL, { waitUntil: 'networkidle2' });
 
 // =============================================================
 // 10 Sec for page load
