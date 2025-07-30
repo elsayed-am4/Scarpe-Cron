@@ -7,7 +7,30 @@ const path = require('path');
 
 const nodemailer = require('nodemailer');
 
+const archiver = require('archiver');
 
+
+
+// ================================
+// zip file
+//=================================
+async function zipFile(sourceFilePath, zipFilePath) {
+  return new Promise((resolve, reject) => {
+    const output = fs.createWriteStream(zipFilePath);
+    const archive = archiver('zip', { zlib: { level: 9 } });
+
+    output.on('close', () => {
+      console.log(`✅ Zipped file created: ${zipFilePath} (${archive.pointer()} bytes)`);
+      resolve();
+    });
+
+    archive.on('error', err => reject(err));
+
+    archive.pipe(output);
+    archive.file(sourceFilePath, { name: path.basename(sourceFilePath) });
+    archive.finalize();
+  });
+}
 // ================================
 // send email with the csv
 //=================================
@@ -396,9 +419,22 @@ await waitForDownload(downloadPath, beforeCount);
       const newFileName = `export_traffic_src_${fileDate}${ext}`;
       fs.renameSync(path.join(downloadPath, latestFile), path.join(downloadPath, newFileName));
       console.log(`Downloaded and renamed: ${newFileName}`);
-      const newPath = path.join(downloadPath, newFileName);
-    // Send the file as an email attachment
-    await sendEmailWithAttachment(newPath, newFileName);
+
+    //   const newPath = path.join(downloadPath, newFileName);
+    // // Send the file as an email attachment
+    // await sendEmailWithAttachment(newPath, newFileName);
+
+
+
+
+    const zipName = newFileName.replace('.csv', '.zip');
+      const zipPath = path.join(downloadPath, zipName);
+
+      // Zip the CSV file
+      await zipFile(newPath, zipPath);
+
+      // Send the zipped file as email attachment
+      await sendEmailWithAttachment(zipPath, zipName);
 
     } else {
       console.error('No file found to rename!');
