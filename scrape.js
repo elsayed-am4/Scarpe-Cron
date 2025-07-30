@@ -420,7 +420,7 @@ await waitForDownload(downloadPath, beforeCount);
       fs.renameSync(path.join(downloadPath, latestFile), path.join(downloadPath, newFileName));
       console.log(`Downloaded and renamed: ${newFileName}`);
 
-    //   const newPath = path.join(downloadPath, newFileName);
+     const newPath = path.join(downloadPath, newFileName);
     // // Send the file as an email attachment
     // await sendEmailWithAttachment(newPath, newFileName);
 
