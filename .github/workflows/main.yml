@@ -2,7 +2,7 @@ name: Daily Looker Report Export
 
 on:
   schedule:
-    - cron: '0 15 * * *'  # Runs daily at 5 AM UTC (adjust as needed)
+    - cron: '0 7 * * *'  # Runs daily at 5 AM UTC (adjust as needed)
   workflow_dispatch:     # Allows manual runs from GitHub UI
 
 jobs:
