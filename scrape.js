@@ -122,11 +122,11 @@ function formatFileDate(date) {
   // 1. Launch browser and go to the report URL
   const browser = await puppeteer.launch({  executablePath: '/usr/bin/google-chrome',args: ['--no-sandbox', '--disable-setuid-sandbox'], headless: 'new' });
   const page = await browser.newPage();
-  await page.goto(REPORT_URL, { waitUntil: 'networkidle2' });
+  await page.goto(REPORT_URL, { waitUntil: 'networkidle2' , timeout: 0 });
 
 // =============================================================
 // 10 Sec for page load
-  await new Promise(resolve => setTimeout(resolve, 60000));
+  await new Promise(resolve => setTimeout(resolve, 100000));
 //==============================================================
 
   //  Set downlaod Path
