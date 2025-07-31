@@ -158,7 +158,7 @@ for (let date of dates) {
 await page.click('button.ng2-date-picker-button.canvas-date-input');
 
 // 2. Wait for the overlay to appear
-await page.waitForSelector('.canvas-date-picker-dialog', {timeout: 30000});
+await page.waitForSelector('.canvas-date-picker-dialog', {timeout: 60000});
 
 // Helper function to set a calendar panel to a specific month/year
 async function setCalendarMonth(panelClass, targetMonthYear) {
